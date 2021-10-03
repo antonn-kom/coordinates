@@ -5,7 +5,7 @@ $coord = [55.750626, 37.597664];
 <div>
 Координаты плитки:<br>
 <pre>
-    <?php var_dump(getTileCoordinates($coord)) ?>
+    <?php var_dump(getTileCoordinates($coord)); ?>
 </pre>
 </div>
 
