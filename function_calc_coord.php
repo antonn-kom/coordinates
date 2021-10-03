@@ -5,7 +5,7 @@ $coord = [55.750626, 37.597664];
 <div>
 Координаты плитки:<br>
 <pre>
-    <?php var_dump(getTileCoordinates($coord)); ?>
+    <?php var_dump(getTileCoordinates($coord)) ?>
 </pre>
 </div>
 
@@ -22,17 +22,17 @@ function getTileCoordinates(array $coord) : array
     $exsen = 0.0818191908426;
     $worldSize = pow(2, 31);
 
-    $latitude = array_shift($coord) * M_PI / 180;
-    $longitude = array_shift($coord) * M_PI / 180;
+    $latitude = $coord[0] * M_PI / 180;
+    $longitude = $coord[1] * M_PI / 180;
 
     $tanTemp = tan(M_PI / 4 + $latitude / 2);
-    $powTemp = pow(tan(M_PI / 4 + asin($e * sin($latitude)) / 2), $e);
+    $powTemp = pow(tan(M_PI / 4 + asin($exsen * sin($latitude)) / 2), $exsen);
 
     $a = $worldSize / $equatorLength;
     $b = $equatorLength / 2;
 
-    $tileX = floor((($b + $equatorRadius * $longitude) * $a) / 256);
-    $tileY = floor((($b - $equatorRadius * log($tanTemp / $powTemp)) * $a) / 256);
+    $tileX = floor(((($b + $equatorRadius * $longitude) * $a) / 256) / pow(2, 4));
+    $tileY = floor(((($b - $equatorRadius * log($tanTemp / $powTemp)) * $a) / 256) / pow(2, 4));
 
     return [$tileX, $tileY];
 }
